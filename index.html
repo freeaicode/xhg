@@ -152,6 +152,13 @@
         <main>
             <div id="loading" class="loading" style="display:none">正在加载数据...</div>
             <div class="grid" id="videoGrid"></div>
+            <div class="pagination" id="pagination" style="display:none; padding-top: 15px;">
+                <button class="pagebtn" onclick="changePage(1)" ${1 === 1 ? 'disabled' : ''}>首页</button>
+                <button class="pagebtn" onclick="changePage(prevPage)">上一页</button>
+                <span class="pagenum" id="currentPage">1</span>
+                <button class="pagebtn" onclick="changePage(nextPage)">下一页</button>
+                <button class="pagebtn" onclick="changePage(lastPage)">末页</button>
+            </div>
         </main>
     </section>
 
@@ -288,6 +295,9 @@
                     ${cat.name}
                 </button>
             `).join('');
+
+            // 点击排行榜标签
+            document.getElementById('tab-ranks').onclick = () => selectCategory(5);
         }
 
         // 渲染视频网格
@@ -304,7 +314,13 @@
                 return;
             }
 
-            grid.innerHTML = category.videos.map((video, index) => `
+            // 计算分页
+            const pageSize = category.pageSize || 20;
+            const totalPages = Math.ceil(category.videos.length / pageSize);
+            const offset = (currentPage - 1) * pageSize;
+            const pageVideos = category.videos.slice(offset, offset + pageSize);
+            
+            grid.innerHTML = pageVideos.map((video, index) => `
                 <div class="card" onclick="playVideo('${video.url}', '${video.name.replace(/'/g, "\\'")}')">
                     <div class="cover">
                         <img src="${video.cover}" alt="${video.name}" loading="lazy">
@@ -315,6 +331,22 @@
                     </div>
                 </div>
             `).join('');
+
+            // 更新分页控件
+            const pagination = document.getElementById('pagination');
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+            } else {
+                pagination.style.display = 'block';
+                document.getElementById('currentPage').textContent = currentPage;
+                document.getElementById('pagination').innerHTML = `
+                    <button class="pagebtn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(1)">首页</button>
+                    <button class="pagebtn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(currentPage - 1)">上一页</button>
+                    <span class="pagenum" id="currentPage">${currentPage}</span>
+                    <button class="pagebtn" onclick="changePage(currentPage + 1)">下一页</button>
+                    <button class="pagebtn" onclick="changePage(${totalPages})">末页</button>
+                `;
+            }
         }
 
         // 选择分类
@@ -323,7 +355,15 @@
             document.querySelectorAll('.tab').forEach((tab, i) => {
                 tab.classList.toggle('active', i === index);
             });
-            renderVideoGrid();
+            
+            // 如果是排行榜分类，显示特殊视图
+            if (index === 5) {
+                showRankingList();
+            } else {
+                currentPage = 1;
+                renderVideoGrid();
+                showView('home-view');
+            }
         }
 
         // 搜索功能
@@ -460,6 +500,49 @@
                     ${ep.num}
                 </button>
             `).join('');
+        }
+
+        // 显示排行榜
+        function showRankingList() {
+            const category = appData.categories['ranks/hot'];
+            if (!category || !category.videos) {
+                showView('home-view');
+                return;
+            }
+            
+            const main = document.querySelector('main');
+            if (!main) return;
+            
+            // 计算分页
+            const pageSize = category.pageSize || 20;
+            const totalPages = Math.ceil(category.videos.length / pageSize);
+            const offset = (currentPage - 1) * pageSize;
+            const pageVideos = category.videos.slice(offset, offset + pageSize);
+            
+            main.innerHTML = `
+                <div class="pagination" style="display:none; padding-top: 15px;">
+                    <button class="pagebtn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(1)">首页</button>
+                    <button class="pagebtn ${currentPage <= 1 ? 'disabled' : ''}" onclick="changePage(currentPage - 1)">上一页</button>
+                    <span class="pagenum" id="currentPage">${currentPage}</span>
+                    <button class="pagebtn" onclick="changePage(currentPage + 1)">下一页</button>
+                    <button class="pagebtn" onclick="changePage(${totalPages})">末页</button>
+                </div>
+                <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;">
+                    ${pageVideos.map((video, index) => `
+                        <div class="card" onclick="playVideo('${video.url}', '${video.name.replace(/'/g, "\\'")}')">
+                            <div class="cover">
+                                <img src="${video.vod_pic}" alt="${video.vod_name}" loading="lazy">
+                                <span class="badge ep">${video.vod_remarks}</span>
+                            </div>
+                            <div class="info">
+                                <div class="name">${video.vod_name}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            showView('home-view');
         }
 
         // 播放指定集
@@ -605,6 +688,24 @@
             } else {
                 document.getElementById('videoPlayer').playbackRate = currentSpeed;
             }
+        }
+
+        // 修改页面
+        function changePage(page) {
+            const category = appData.categories[currentCategory];
+            const pageSize = category.pageSize || 20;
+            const totalPages = Math.ceil(category.videos.length / pageSize);
+            
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            
+            // 更新 URL 参数 (如果需要)
+            // const searchParams = new URLSearchParams(window.location.search);
+            // searchParams.set('page', page);
+            // window.location.search = searchParams.toString();
+            
+            renderVideoGrid();
         }
 
         // 切换全屏

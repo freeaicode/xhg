@@ -1,450 +1,87 @@
 {
+  "ver": 1,
   "name": "黄果短剧",
-  "url": "https://thu.rurhvbhx.cc/",
-  "categories": [
-    {
+  "site": "https://huangguoai.com",
+  "tabs": [
+    { "name": "首页", "ext": { "id": "home" } },
+    { "name": "AI成人短剧", "ext": { "id": "ai-duanju" } },
+    { "name": "AI成人漫剧", "ext": { "id": "ai-manju" } },
+    { "name": "AI换脸", "ext": { "id": "ai-huanlian" } },
+    { "name": "AI魔改", "ext": { "id": "ai-mogai" } },
+    { "name": "排行榜", "ext": { "id": "ranks/hot" } }
+  ],
+  "categories": {
+    "ai-duanju": {
       "name": "AI成人短剧",
-      "url": "https://thu.rurhvbhx.cc/ai-duanju/",
+      "page": 1,
+      "pageSize": 20,
       "videos": [
-        {
-          "name": "琼明神女录",
-          "url": "https://thu.rurhvbhx.cc/video/3483/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "网调我的冰山妈妈",
-          "url": "https://thu.rurhvbhx.cc/video/6221/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "宗师级保安",
-          "url": "https://thu.rurhvbhx.cc/video/7732/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "我在荒岛驯服女星",
-          "url": "https://thu.rurhvbhx.cc/video/3884/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "人到中年当保安",
-          "url": "https://thu.rurhvbhx.cc/video/2461/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "老丈人走后 我成为了一家之主",
-          "url": "https://thu.rurhvbhx.cc/video/7705/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "我与岳母的往事",
-          "url": "https://thu.rurhvbhx.cc/video/7707/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "前夫哥爆打六公主",
-          "url": "https://thu.rurhvbhx.cc/video/7197/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "从地狱归来：深渊调教",
-          "url": "https://thu.rurhvbhx.cc/video/5586/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "爱豆粉丝见面会",
-          "url": "https://thu.rurhvbhx.cc/video/7701/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "我的岳母苏沛真",
-          "url": "https://thu.rurhvbhx.cc/video/5161/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "我把兄弟变母狗",
-          "url": "https://thu.rurhvbhx.cc/video/6152/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "苏老师的裸贷人生",
-          "url": "https://thu.rurhvbhx.cc/video/6245/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "母上攻略",
-          "url": "https://thu.rurhvbhx.cc/video/6233/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "弱点",
-          "url": "https://thu.rurhvbhx.cc/video/2902/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "交换游戏",
-          "url": "https://thu.rurhvbhx.cc/video/3710/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "她们的愛喚醒我的神力",
-          "url": "https://thu.rurhvbhx.cc/video/7681/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "老子就是遇神杀神的天地魔丸",
-          "url": "https://thu.rurhvbhx.cc/video/7468/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "无能老公骚情妻",
-          "url": "https://thu.rurhvbhx.cc/video/7279/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "洞洞杂货店",
-          "url": "https://thu.rurhvbhx.cc/video/5078/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "别当圣人",
-          "url": "https://thu.rurhvbhx.cc/video/7167/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        }
+        { "vod_id": "3483", "vod_name": "琼明神女录", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 9.4分", "ext": { "id": "3483" } },
+        { "vod_id": "6221", "vod_name": "网调我的冰山妈妈", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至6集 · 9.8分", "ext": { "id": "6221" } },
+        { "vod_id": "7732", "vod_name": "宗师级保安", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至6集 · 8.5分", "ext": { "id": "7732" } },
+        { "vod_id": "3884", "vod_name": "我在荒岛驯服女星", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 8.3分", "ext": { "id": "3884" } },
+        { "vod_id": "2461", "vod_name": "人到中年当保安", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至4集 · 8.4分", "ext": { "id": "2461" } },
+        { "vod_id": "7705", "vod_name": "老丈人走后 我成为了一家之主", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 8.6分", "ext": { "id": "7705" } },
+        { "vod_id": "7707", "vod_name": "我与岳母的往事", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至5集 · 8.6分", "ext": { "id": "7707" } },
+        { "vod_id": "7197", "vod_name": "前夫哥爆打六公主", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至2集 · 8.2分", "ext": { "id": "7197" } },
+        { "vod_id": "5586", "vod_name": "从地狱归来：深渊调教", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至8集 · 8.7分", "ext": { "id": "5586" } },
+        { "vod_id": "7701", "vod_name": "爱豆粉丝见面会", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至2集 · 8.2分", "ext": { "id": "7701" } }
       ]
     },
-    {
+    "ai-manju": {
       "name": "AI成人漫剧",
-      "url": "https://thu.rurhvbhx.cc/ai-manju/",
+      "page": 1,
+      "pageSize": 20,
       "videos": [
-        {
-          "name": "夜神月vs富江",
-          "url": "https://thu.rurhvbhx.cc/video/5671/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "沉沦之血",
-          "url": "https://thu.rurhvbhx.cc/video/7530/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "系统带我攻略弟弟（漫剧版）",
-          "url": "https://thu.rurhvbhx.cc/video/5010/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "家族秘事",
-          "url": "https://thu.rurhvbhx.cc/video/7303/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "收租老汉",
-          "url": "https://thu.rurhvbhx.cc/video/6686/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "超世纪封神杯",
-          "url": "https://thu.rurhvbhx.cc/video/7110/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "女武神之夜",
-          "url": "https://thu.rurhvbhx.cc/video/6968/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "情侣主的清理工具",
-          "url": "https://thu.rurhvbhx.cc/video/6965/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "嫦娥_千年没开张的饥渴寡妇",
-          "url": "https://thu.rurhvbhx.cc/video/6964/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "足下审判日",
-          "url": "https://thu.rurhvbhx.cc/video/6966/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "反派我的母亲是大帝",
-          "url": "https://thu.rurhvbhx.cc/video/500/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "孔雀缚金戈",
-          "url": "https://thu.rurhvbhx.cc/video/6854/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "雪狼太子神兔妻",
-          "url": "https://thu.rurhvbhx.cc/video/6825/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "系统带我攻略弟弟X夜神月vs富江 中秋特辑",
-          "url": "https://thu.rurhvbhx.cc/video/6757/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "帝师是我笼中雀",
-          "url": "https://thu.rurhvbhx.cc/video/6698/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "观音的慈悲",
-          "url": "https://thu.rurhvbhx.cc/video/6687/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "偷情人妻",
-          "url": "https://thu.rurhvbhx.cc/video/6594/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "巨乳表姐是女仆",
-          "url": "https://thu.rurhvbhx.cc/video/6429/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "特定高甜",
-          "url": "https://thu.rurhvbhx.cc/video/6206/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "末雪禁城",
-          "url": "https://thu.rurhvbhx.cc/video/274/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "上山砍柴偶遇魅魔",
-          "url": "https://thu.rurhvbhx.cc/video/6033/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        }
+        { "vod_id": "5671", "vod_name": "夜神月vs富江", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至5集 · 9.7分", "ext": { "id": "5671" } },
+        { "vod_id": "7530", "vod_name": "沉沦之血", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至10集 · 8.8分", "ext": { "id": "7530" } },
+        { "vod_id": "5010", "vod_name": "系统带我攻略弟弟（漫剧版）", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至8集 · 9.9分", "ext": { "id": "5010" } },
+        { "vod_id": "7303", "vod_name": "家族秘事", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 8.4分", "ext": { "id": "7303" } },
+        { "vod_id": "6686", "vod_name": "收租老汉", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至2集 · 8.3分", "ext": { "id": "6686" } },
+        { "vod_id": "7110", "vod_name": "超世纪封神杯", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至8集 · 8.4分", "ext": { "id": "7110" } },
+        { "vod_id": "6968", "vod_name": "女武神之夜", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至1集 · 8.8分", "ext": { "id": "6968" } },
+        { "vod_id": "6965", "vod_name": "情侣主的清理工具", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至1集 · 8.2分", "ext": { "id": "6965" } },
+        { "vod_id": "6964", "vod_name": "嫦娥_千年没开张的饥渴寡妇", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至1集 · 8.6分", "ext": { "id": "6964" } },
+        { "vod_id": "6966", "vod_name": "足下审判日", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至1集 · 8.4分", "ext": { "id": "6966" } }
       ]
     },
-    {
+    "ai-huanlian": {
       "name": "AI换脸",
-      "url": "https://thu.rurhvbhx.cc/ai-huanlian/",
+      "page": 1,
+      "pageSize": 20,
       "videos": [
-        {
-          "name": "AI换脸 林允儿献身 绝美女神潮喷内射",
-          "url": "https://thu.rurhvbhx.cc/video/4381/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 杨幂 渔网袜情趣装兔女郎办公室跟领导做爱",
-          "url": "https://thu.rurhvbhx.cc/video/3957/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 刘亦菲努力使劲干我",
-          "url": "https://thu.rurhvbhx.cc/video/4759/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 张雅倩",
-          "url": "https://thu.rurhvbhx.cc/video/4697/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 迪丽热巴 后宫艳照系统",
-          "url": "https://thu.rurhvbhx.cc/video/7220/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 章若楠",
-          "url": "https://thu.rurhvbhx.cc/video/7183/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 刘亦菲 班主任亲自辅导两名差生下",
-          "url": "https://thu.rurhvbhx.cc/video/7186/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 迪丽热巴 要避孕需医生先射入 我可是妇科圣手",
-          "url": "https://thu.rurhvbhx.cc/video/7184/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 Lisa",
-          "url": "https://thu.rurhvbhx.cc/video/7185/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 刘知珉 艺名Karina",
-          "url": "https://thu.rurhvbhx.cc/video/7181/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 迪丽热巴一字马",
-          "url": "https://thu.rurhvbhx.cc/video/4634/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 杨幂",
-          "url": "https://thu.rurhvbhx.cc/video/6798/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 庄达菲",
-          "url": "https://thu.rurhvbhx.cc/video/6804/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 鞠婧祎",
-          "url": "https://thu.rurhvbhx.cc/video/6803/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 刘亦菲",
-          "url": "https://thu.rurhvbhx.cc/video/6805/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 张芷溪",
-          "url": "https://thu.rurhvbhx.cc/video/6799/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 邓家佳",
-          "url": "https://thu.rurhvbhx.cc/video/6802/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 金智秀",
-          "url": "https://thu.rurhvbhx.cc/video/6806/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 杨超越 全裸仰卧口交",
-          "url": "https://thu.rurhvbhx.cc/video/6902/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 鞠婧祎",
-          "url": "https://thu.rurhvbhx.cc/video/6810/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI换脸 章若楠 账户冻结用身体抵房租",
-          "url": "https://thu.rurhvbhx.cc/video/6807/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        }
+        { "vod_id": "4381", "vod_name": "AI换脸 林允儿献身 绝美女神潮喷内射", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "4381" } },
+        { "vod_id": "3957", "vod_name": "AI换脸 杨幂 渔网袜情趣装兔女郎办公室跟领导做爱", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "3957" } },
+        { "vod_id": "4759", "vod_name": "AI换脸 刘亦菲努力使劲干我", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "4759" } },
+        { "vod_id": "4697", "vod_name": "AI换脸 张雅倩", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "4697" } },
+        { "vod_id": "7220", "vod_name": "AI换脸 迪丽热巴 后宫艳照系统", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "7220" } },
+        { "vod_id": "7183", "vod_name": "AI换脸 章若楠", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "7183" } }
       ]
     },
-    {
+    "ai-mogai": {
       "name": "AI魔改",
-      "url": "https://thu.rurhvbhx.cc/ai-mogai/",
+      "page": 1,
+      "pageSize": 20,
       "videos": [
-        {
-          "name": "AI魔改 杨超越 人间锦鲤天然呆极致反差",
-          "url": "https://thu.rurhvbhx.cc/video/7207/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 程潇 完美身材大美胸的微胖女星不得不说的隐秘性爱史",
-          "url": "https://thu.rurhvbhx.cc/video/7215/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 倪妮 御姐床上骚到骨子里 浪叫时哑得要命 高潮还夹着不放",
-          "url": "https://thu.rurhvbhx.cc/video/7217/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 景甜",
-          "url": "https://thu.rurhvbhx.cc/video/7218/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 毛晓彤 王楚然等众多戏子的无奈，出席活动现场被资方大佬现场潜规则",
-          "url": "https://thu.rurhvbhx.cc/video/7219/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 刘浩存 演技出众的00后小花脱光衣服与你不见不散",
-          "url": "https://thu.rurhvbhx.cc/video/7224/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 王心凌 甜心教主每天都需要大量的精液滋养 才能永葆青春",
-          "url": "https://thu.rurhvbhx.cc/video/7223/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 韩国女团刘知珉 内永枝利 金旼炡 宁艺卓美女脱衣口交激情啪啪啪",
-          "url": "https://thu.rurhvbhx.cc/video/7221/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 倪妮 清冷女神上了床就会乖乖臣服在你胯下",
-          "url": "https://thu.rurhvbhx.cc/video/7225/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 田曦薇 是时候该给魅惑的小田一点小小的奖励啦",
-          "url": "https://thu.rurhvbhx.cc/video/7226/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 赵今麦 弟弟 想不想让姐姐玩弄你的大棒",
-          "url": "https://thu.rurhvbhx.cc/video/6664/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 刘浩存 从不缺资源的新生代小花 靠的真的是天赋吗",
-          "url": "https://thu.rurhvbhx.cc/video/6668/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 谭松韵 不老童颜不过是因为每天都有来自各种男人的精液滋养(PMV 淫荡解说)",
-          "url": "https://thu.rurhvbhx.cc/video/6670/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 刘亦菲 就算是天仙也逃不过被金主爸爸们当成母狗玩弄的命运",
-          "url": "https://thu.rurhvbhx.cc/video/6769/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 辛芷蕾 气质女神参演庆余年和花儿与少年时的私下故事",
-          "url": "https://thu.rurhvbhx.cc/video/6766/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 小何何",
-          "url": "https://thu.rurhvbhx.cc/video/7046/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 逃学威龙3之龙过鸡年",
-          "url": "https://thu.rurhvbhx.cc/video/7048/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 香菇终结者",
-          "url": "https://thu.rurhvbhx.cc/video/7045/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 白鹿 下面好痒，都流水了",
-          "url": "https://thu.rurhvbhx.cc/video/7047/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 欧阳娜娜 年纪轻轻就 一天没有男人都受不了",
-          "url": "https://thu.rurhvbhx.cc/video/6767/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        },
-        {
-          "name": "AI魔改 林志玲 嗲声嗲气的在国内得不到满足 还要远嫁国外",
-          "url": "https://thu.rurhvbhx.cc/video/6669/",
-          "cover": "https://thu.rurhvbhx.cc/static/web/images/cover-placeholder.png"
-        }
+        { "vod_id": "7207", "vod_name": "AI魔改 杨超越 人间锦鲤天然呆极致反差", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "7207" } },
+        { "vod_id": "7215", "vod_name": "AI魔改 程潇 完美身材大美胸的微胖女星不得不说的隐秘性爱史", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "7215" } },
+        { "vod_id": "7217", "vod_name": "AI魔改 倪妮 御姐床上骚到骨子里 浪叫时哑得要命 高潮还夹着不放", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "7217" } },
+        { "vod_id": "7218", "vod_name": "AI魔改 景甜", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "7218" } },
+        { "vod_id": "7219", "vod_name": "AI魔改 毛晓彤 王楚然等众多戏子的无奈，出席活动现场被资方大佬现场潜规则", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "ext": { "id": "7219" } }
+      ]
+    },
+    "ranks/hot": {
+      "name": "排行榜",
+      "page": 1,
+      "pageSize": 20,
+      "videos": [
+        { "vod_id": "3483", "vod_name": "琼明神女录", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 9.4分", "ext": { "id": "3483" } },
+        { "vod_id": "7530", "vod_name": "沉沦之血", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至10集 · 8.8分", "ext": { "id": "7530" } },
+        { "vod_id": "5010", "vod_name": "系统带我攻略弟弟（漫剧版）", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至8集 · 9.9分", "ext": { "id": "5010" } },
+        { "vod_id": "7303", "vod_name": "家族秘事", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 8.4分", "ext": { "id": "7303" } },
+        { "vod_id": "6686", "vod_name": "收租老汉", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至2集 · 8.3分", "ext": { "id": "6686" } },
+        { "vod_id": "7110", "vod_name": "超世纪封神杯", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至8集 · 8.4分", "ext": { "id": "7110" } }
       ]
     }
-  ]
+  }
 }
