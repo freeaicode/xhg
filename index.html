@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <meta name="referrer" content="no-referrer">
+    <title>黄果短剧 - 沉浸式观影</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        /* ==================== 全局基础样式 ==================== */
+        :root{--bg:#0b0c10;--card:#151821;--card2:#1f2432;--line:#2a3040;--pink:#ff3358;--yellow:#ffcc00;--text:#f8fafc;--muted:#9aa1b2;--dim:#626a7e}
+        *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+        body{margin:0 auto;max-width:500px;min-height:100vh;background:var(--bg);color:var(--text);font:14px -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow-x:hidden;}
+        
+        .view{display:none}
+        .view.active{display:block}
+        
+        /* ---------------- 主页样式 ---------------- */
+        .header{position:sticky;top:0;z-index:30;background:rgba(11,12,16,.95);backdrop-filter:blur(12px);padding:10px 14px;border-bottom:1px solid var(--line)}
+        .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+        .brand{font-size:17px;font-weight:800;cursor:pointer}
+        .brand b{color:var(--pink)}
+        button{font:inherit;cursor:pointer;border:none;outline:none;}
+        
+        .search{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;background:#1a1e2b;border:1px solid var(--line);border-radius:20px}
+        .search input{flex:1;min-width:0;color:#fff;background:transparent;border:0;outline:0}
+        .search button{color:var(--pink);background:transparent;font-weight:700}
+        
+        .tabs{display:flex;gap:8px;overflow-x:auto;padding-top:9px}
+        .tabs::-webkit-scrollbar{display:none}
+        .tab{white-space:nowrap;padding:5px 12px;border-radius:16px;background:transparent;border:1px solid var(--line);color:var(--muted);flex-shrink:0;}
+        .tab.active{color:#fff;background:var(--pink);border-color:var(--pink)}
+        
+        main{padding:12px}
+        .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+        .card{overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:7px;cursor:pointer}
+        .cover{position:relative;aspect-ratio:16/10;background:#202633}
+        .cover img{display:block;width:100%;height:100%;object-fit:cover}
+        .badge{position:absolute;padding:2px 5px;border-radius:4px;background:rgba(0,0,0,.75);font-size:10px}
+        .ep{top:4px;left:4px;color:var(--yellow)}
+        .info{padding:7px 8px}
+        .name{min-height:32px;font-size:12px;font-weight:600;line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+        .loading{text-align:center;padding:50px 10px;color:var(--muted)}
+
+        /* ==================== 沉浸式播放页 ==================== */
+        #player-view{position:fixed;inset:0;width:100vw;height:100dvh;background:#000;z-index:1000;overflow:hidden}
+        .video-layer{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:flex;justify-content:center;align-items:center;background:#000}
+        .video-layer video,.video-layer iframe{width:100%;height:100%;border:none;object-fit:contain}
+        .player-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:2;transition:opacity .3s ease;pointer-events:none;filter:brightness(.85);background:#000}
+        .player-poster.hidden{opacity:0}
+
+        /* 沉浸式 UI 图层 */
+        .ui-layer{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+        .ui-top,.ui-right,.ui-bottom-controls,.click-layer{pointer-events:auto}
+        .click-layer{position:absolute;inset:0;z-index:-1}
+
+        /* 顶部导航 */
+        .ui-top{padding:45px 15px 15px;display:flex;align-items:center;gap:12px;background:linear-gradient(to bottom,rgba(0,0,0,.6) 0%,transparent 100%)}
+        .ui-back{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);display:flex;justify-content:center;align-items:center;font-size:20px;font-weight:300;cursor:pointer;color:#fff}
+        .ui-logo-box{display:flex;align-items:center;gap:6px}
+        .ui-logo-icon{width:28px;height:28px;background:var(--pink);border-radius:50%;display:flex;justify-content:center;align-items:center;position:relative}
+        .ui-logo-icon::after{content:'';width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid #fff;margin-left:2px}
+        .ui-logo-text{display:flex;flex-direction:column;line-height:1.1}
+        .ui-logo-text b{font-size:15px;font-weight:900;letter-spacing:1px;color:#fff;text-shadow:1px 1px 2px rgba(0,0,0,.8)}
+        .ui-logo-text b span{color:var(--pink);font-size:10px;vertical-align:top;margin-left:2px}
+        .ui-logo-text small{font-size:10px;color:rgba(255,255,255,.8);font-family:monospace}
+
+        /* 右侧互动区 */
+        .ui-right{position:absolute;right:12px;bottom:130px;display:flex;flex-direction:column;gap:20px;align-items:center}
+        .action-item{display:flex;flex-direction:column;align-items:center;gap:5px;color:#fff;cursor:pointer}
+        .action-icon{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.4);display:flex;justify-content:center;align-items:center;font-size:18px;text-shadow:0 1px 4px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(4px);transition:transform .1s}
+        .action-item:active .action-icon{transform:scale(.9)}
+        .action-item span{font-size:11px;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.8)}
+        .speed-icon{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.3);display:flex;justify-content:center;align-items:center;font-size:13px;font-weight:bold;backdrop-filter:blur(4px)}
+
+        /* 纯黄底呼吸发光按钮 */
+        @keyframes breathingGlow{0%{box-shadow:0 0 0 0 rgba(255,204,0,.6);transform:scale(1)}70%{box-shadow:0 0 14px 7px rgba(255,204,0,0);transform:scale(1.08)}100%{box-shadow:0 0 0 0 rgba(255,204,0,0);transform:scale(1)}}
+        
+        #playPauseIcon{background:var(--yellow);color:#fff;border-color:var(--yellow);text-shadow:0 1px 2px rgba(0,0,0,.2)}
+        #playPauseIcon.pulsing{animation:breathingGlow 1.8s infinite ease-in-out}
+
+        /* 底部信息区 */
+        .ui-bottom{background:linear-gradient(to top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.6) 40%,transparent 100%);padding-top:40px}
+        .ui-info{padding:0 15px 12px;width:85%}
+        .ui-title{font-size:18px;font-weight:bold;margin:0 0 6px 0;text-shadow:0 1px 2px rgba(0,0,0,.8)}
+        .ui-desc{font-size:13px;color:rgba(255,255,255,.8);margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+        /* 进度条 */
+        .ui-progress-bar{width:100%;height:2px;background:rgba(255,255,255,.2);position:relative;margin-bottom:5px}
+        .ui-progress-fill{height:100%;background:var(--pink);width:0%;position:relative}
+        .ui-progress-dot{width:8px;height:8px;background:var(--pink);border-radius:50%;position:absolute;right:-4px;top:-3px}
+
+        /* 底部选集控制栏 */
+        .ui-bottom-controls{display:flex;justify-content:space-between;align-items:center;padding:10px 15px 25px;color:rgba(255,255,255,.9);font-size:13px;cursor:pointer}
+        .ui-ep-left{display:flex;align-items:center;gap:6px;font-weight:500}
+        .ui-ep-right{display:flex;align-items:center;gap:15px;font-size:16px}
+        
+        .play-indicator{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(0,0,0,.5);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:24px;opacity:0;pointer-events:none;transition:opacity .2s}
+        .play-indicator.show{opacity:1}
+
+        /* ==================== 底部弹窗 (选集与线路) ==================== */
+        .sheet-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1001;opacity:0;pointer-events:none;transition:opacity .3s}
+        .sheet-backdrop.show{opacity:1;pointer-events:auto}
+        .bottom-sheet{position:fixed;bottom:0;left:0;width:100vw;height:65vh;background:var(--card);z-index:1002;border-radius:16px 16px 0 0;transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column}
+        .bottom-sheet.show{transform:translateY(0)}
+        
+        .sheet-header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border-bottom:1px solid rgba(255,255,255,.05)}
+        .sheet-header h3{margin:0;font-size:16px;font-weight:bold}
+        .sheet-close{width:30px;height:30px;border-radius:50%;background:var(--card2);display:flex;justify-content:center;align-items:center;color:var(--muted);cursor:pointer;font-size:16px}
+        
+        .sheet-content{padding:15px 20px;overflow-y:auto;flex:1}
+        .sheet-section-title{font-size:13px;color:var(--muted);margin-bottom:10px;display:block}
+        
+        .routes{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:25px}
+        .route{padding:8px 14px;border-radius:20px;background:var(--card2);color:var(--text);border:1px solid transparent;font-size:12px}
+        .route.active{background:rgba(255,51,88,.1);color:var(--pink);border-color:var(--pink)}
+        
+        .episodes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+        .ep-btn{height:45px;border-radius:8px;background:var(--card2);color:var(--text);display:flex;justify-content:center;align-items:center;font-size:14px;font-weight:600;border:none;padding:0 10px}
+        .ep-btn.active{background:var(--pink);color:#fff}
+
+        /* 真实播放连接显示 */
+        .real-url-box{margin-bottom:25px;padding:12px;background:var(--card2);border-radius:8px;border:1px solid var(--line)}
+        .real-url-label{font-size:12px;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+        .real-url-label::before{content:'';width:6px;height:6px;background:var(--pink);border-radius:50%}
+        .real-url-text{font-size:11px;color:var(--text);word-break:break-all;line-height:1.5;font-family:monospace;max-height:60px;overflow-y:auto}
+        .real-url-text::-webkit-scrollbar{width:4px}
+        .real-url-text::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
+
+        /* 复制按钮 */
+        .copy-btn{margin-top:8px;padding:6px 12px;background:var(--pink);color:#fff;border-radius:6px;font-size:11px;cursor:pointer;transition:opacity .2s}
+        .copy-btn:hover{opacity:.8}
+    </style>
+</head>
+<body>
+
+    <!-- 主页视图 -->
+    <section id="home-view" class="view active">
+        <header class="header">
+            <div class="top">
+                <div class="brand" onclick="goHome()"><b>黄果短剧</b> 在线</div>
+            </div>
+            <div class="search">
+                ⌕<input id="searchInput" placeholder="搜索视频..." onkeydown="if(event.key==='Enter') doSearch(this.value)">
+                <button onclick="doSearch(document.getElementById('searchInput').value)">搜索</button>
+            </div>
+            
+            <div class="tabs" id="categoryBar">
+                <div class="loading" style="padding:20px;width:100%;text-align:center;color:var(--muted)">加载中...</div>
+            </div>
+        </header>
+        <main>
+            <div id="loading" class="loading" style="display:none">正在加载数据...</div>
+            <div class="grid" id="videoGrid"></div>
+        </main>
+    </section>
+
+    <!-- 沉浸式播放页视图 -->
+    <section id="player-view" class="view">
+        <div class="video-layer">
+            <img id="playerPoster" class="player-poster" src="" alt="封面" />
+            <video id="videoPlayer" autoplay playsinline webkit-playsinline></video>
+        </div>
+        
+        <div class="ui-layer">
+            <div class="click-layer" id="clickLayer"></div>
+            <div class="play-indicator" id="playIndicator">▶</div>
+            <div class="ui-top">
+                <div class="ui-back" onclick="navToHome()">‹</div>
+                <div class="ui-logo-box">
+                    <div class="ui-logo-icon"></div>
+                    <div class="ui-logo-text">
+                        <b>黄果<span>HG</span></b>
+                        <small>www.huangguo.ai</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ui-right">
+                <div class="action-item" onclick="shareAction()">
+                    <div class="action-icon" style="font-size:22px;">➦</div>
+                    <span>分享</span>
+                </div>
+                
+                <div class="action-item" onclick="toggleFullScreen()">
+                    <div class="action-icon" style="font-size:18px;">⛶</div>
+                    <span>全屏</span>
+                </div>
+                
+                <div class="action-item" onclick="toggleSpeed()">
+                    <div class="speed-icon" id="speedText">1X</div>
+                    <span>倍速</span>
+                </div>
+                
+                <div class="action-item" onclick="togglePlayPause()">
+                    <div class="action-icon pulsing" id="playPauseIcon" style="font-size:16px;">▶</div>
+                    <span id="playPauseText">播放</span>
+                </div>
+            </div>
+            
+            <div class="ui-bottom">
+                <div class="ui-info">
+                    <h2 class="ui-title" id="uiTitle">加载中...</h2>
+                    <p class="ui-desc" id="uiDesc">资源加载中...</p>
+                </div>
+                <div class="ui-progress-bar" id="progressBarBg">
+                    <div class="ui-progress-fill" id="progressFill"><div class="ui-progress-dot"></div></div>
+                </div>
+                <div class="ui-bottom-controls" onclick="toggleSheet()">
+                    <div class="ui-ep-left"><span style="font-size:16px">≡</span> 选集线路 · 共 <span id="uiTotal">0</span> 条</div>
+                    <div class="ui-ep-right"><span>︿</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部弹窗：选集与双引擎切换 -->
+    <div class="sheet-backdrop" id="sheetBackdrop" onclick="toggleSheet()"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+        <div class="sheet-header">
+            <h3>控制面板</h3>
+            <div class="sheet-close" onclick="toggleSheet()">✕</div>
+        </div>
+        <div class="sheet-content">
+            <span class="sheet-section-title">真实播放连接</span>
+            <div class="real-url-box">
+                <div class="real-url-label">当前视频源 (M3U8)</div>
+                <div class="real-url-text" id="realUrlText">等待获取...</div>
+                <button class="copy-btn" onclick="copyUrl()">复制链接</button>
+            </div>
+            
+            <span class="sheet-section-title">播放引擎</span>
+            <div class="routes">
+                <button class="route active" onclick="switchRoute(0)">原生直连</button>
+                <button class="route" onclick="switchRoute(1)">内置 HLS</button>
+            </div>
+            
+            <span class="sheet-section-title">选集</span>
+            <div class="episodes-grid" id="epList"></div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 数据加载 ====================
+        let appData = null;
+        let currentCategory = 0;
+        let currentVideoData = null;
+        let currentEpisodes = [];
+        let currentEpisodeIndex = 0;
+        let hls = null;
+        let currentSpeed = 1.0;
+        let currentRoute = 0; // 0: 原生直连, 1: 内置 HLS
+
+        // CORS Proxies
+        const CORS_PROXIES = [
+            (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+            (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+            (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+        ];
+
+        // 加载数据
+        async function loadData() {
+            try {
+                const response = await fetch('xptv.json');
+                if (!response.ok) throw new Error('Failed to load data');
+                appData = await response.json();
+                renderCategories();
+                renderVideoGrid();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('videoGrid').innerHTML = '<div class="loading">加载数据失败</div>';
+            }
+        }
+
+        // 渲染分类标签
+        function renderCategories() {
+            const tabsContainer = document.getElementById('categoryBar');
+            if (!appData || !appData.categories) return;
+
+            tabsContainer.innerHTML = appData.categories.map((cat, index) => `
+                <button class="tab ${index === 0 ? 'active' : ''}" 
+                        onclick="selectCategory(${index})"
+                        data-index="${index}">
+                    ${cat.name}
+                </button>
+            `).join('');
+        }
+
+        // 渲染视频网格
+        function renderVideoGrid() {
+            const grid = document.getElementById('videoGrid');
+            if (!appData || !appData.categories || appData.categories.length === 0) {
+                grid.innerHTML = '<div class="loading">暂无视频内容</div>';
+                return;
+            }
+
+            const category = appData.categories[currentCategory];
+            if (!category || !category.videos || category.videos.length === 0) {
+                grid.innerHTML = '<div class="loading">该分类下暂无视频</div>';
+                return;
+            }
+
+            grid.innerHTML = category.videos.map((video, index) => `
+                <div class="card" onclick="playVideo('${video.url}', '${video.name.replace(/'/g, "\\'")}')">
+                    <div class="cover">
+                        <img src="${video.cover}" alt="${video.name}" loading="lazy">
+                        <span class="badge ep">HD</span>
+                    </div>
+                    <div class="info">
+                        <div class="name">${video.name}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 选择分类
+        function selectCategory(index) {
+            currentCategory = index;
+            document.querySelectorAll('.tab').forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+            renderVideoGrid();
+        }
+
+        // 搜索功能
+        function doSearch(keyword) {
+            if (!keyword.trim()) {
+                renderVideoGrid();
+                return;
+            }
+            
+            const grid = document.getElementById('videoGrid');
+            const category = appData.categories[currentCategory];
+            const filtered = category.videos.filter(v => v.name.toLowerCase().includes(keyword.toLowerCase()));
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="loading">未找到相关视频</div>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map((video, index) => `
+                <div class="card" onclick="playVideo('${video.url}', '${video.name.replace(/'/g, "\\'")}')">
+                    <div class="cover">
+                        <img src="${video.cover}" alt="${video.name}" loading="lazy">
+                        <span class="badge ep">HD</span>
+                    </div>
+                    <div class="info">
+                        <div class="name">${video.name}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 通过 CORS 代理获取页面
+        async function fetchWithProxy(url) {
+            for (const getProxyUrl of CORS_PROXIES) {
+                try {
+                    const proxyUrl = getProxyUrl(url);
+                    const response = await fetch(proxyUrl, { timeout: 15000 });
+                    if (response.ok) {
+                        return await response.text();
+                    }
+                } catch (e) {
+                    console.warn('Proxy failed:', e);
+                }
+            }
+            throw new Error('All proxies failed');
+        }
+
+        // 解析视频数据
+        function parseVideoData(html) {
+            const match = html.match(/<script id="videoInitialData" type="application\/json">([\s\S]*?)<\/script>/);
+            if (match && match[1]) {
+                try {
+                    return JSON.parse(match[1]);
+                } catch (e) {
+                    console.error('Failed to parse videoInitialData:', e);
+                }
+            }
+            return null;
+        }
+
+        // 播放视频
+        async function playVideo(url, title) {
+            showView('player-view');
+            
+            const uiTitle = document.getElementById('uiTitle');
+            const uiDesc = document.getElementById('uiDesc');
+            const playerPoster = document.getElementById('playerPoster');
+            const videoPlayer = document.getElementById('videoPlayer');
+            
+            uiTitle.textContent = title;
+            uiDesc.textContent = '正在获取视频源...';
+            playerPoster.src = '';
+            playerPoster.classList.remove('hidden');
+
+            try {
+                const html = await fetchWithProxy(url);
+                const videoData = parseVideoData(html);
+                
+                if (videoData) {
+                    currentVideoData = videoData;
+                    
+                    // 构建播放列表
+                    currentEpisodes = [];
+                    if (videoData.epPlaySrcs) {
+                        Object.keys(videoData.epPlaySrcs).sort((a, b) => parseInt(a) - parseInt(b)).forEach(epNum => {
+                            currentEpisodes.push({
+                                num: parseInt(epNum),
+                                name: `第${epNum}集`,
+                                url: videoData.epPlaySrcs[epNum]
+                            });
+                        });
+                    } else if (videoData.videoSrc) {
+                        currentEpisodes.push({
+                            num: 1,
+                            name: '第1集',
+                            url: videoData.videoSrc
+                        });
+                    }
+
+                    // 更新 UI
+                    uiTitle.textContent = videoData.title || title;
+                    uiDesc.textContent = videoData.description || '暂无描述';
+                    document.getElementById('uiTotal').textContent = currentEpisodes.length;
+                    
+                    // 设置封面
+                    if (videoData.coverSrc) {
+                        playerPoster.src = videoData.coverSrc;
+                    } else if (videoData.posterSrc) {
+                        playerPoster.src = videoData.posterSrc;
+                    }
+
+                    // 渲染播放列表
+                    renderPlaylist();
+
+                    // 播放第一集
+                    if (currentEpisodes.length > 0) {
+                        playEpisode(0);
+                    }
+                } else {
+                    throw new Error('无法解析视频数据');
+                }
+            } catch (error) {
+                console.error('Error playing video:', error);
+                uiDesc.textContent = '获取视频失败: ' + error.message;
+            }
+        }
+
+        // 渲染播放列表
+        function renderPlaylist() {
+            const epList = document.getElementById('epList');
+            epList.innerHTML = currentEpisodes.map((ep, index) => `
+                <button class="ep-btn ${index === currentEpisodeIndex ? 'active' : ''}" 
+                        onclick="playEpisode(${index})">
+                    ${ep.num}
+                </button>
+            `).join('');
+        }
+
+        // 播放指定集
+        function playEpisode(index) {
+            if (index < 0 || index >= currentEpisodes.length) return;
+            
+            currentEpisodeIndex = index;
+            const episode = currentEpisodes[index];
+            const videoPlayer = document.getElementById('videoPlayer');
+            const playerPoster = document.getElementById('playerPoster');
+            const realUrlText = document.getElementById('realUrlText');
+
+            // 更新播放列表高亮
+            document.querySelectorAll('.ep-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            // 更新真实链接显示
+            realUrlText.textContent = episode.url;
+
+            // 销毁旧的 HLS 实例
+            if (hls) {
+                hls.destroy();
+                hls = null;
+            }
+
+            // 根据引擎选择播放方式
+            if (currentRoute === 0) {
+                // 原生直连
+                videoPlayer.src = episode.url;
+                videoPlayer.play().catch(e => console.warn('Autoplay failed:', e));
+            } else {
+                // 内置 HLS
+                if (Hls.isSupported()) {
+                    hls = new Hls({ enableWorker: true, lowLatencyMode: true });
+                    hls.loadSource(episode.url);
+                    hls.attachMedia(videoPlayer);
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                        videoPlayer.playbackRate = currentSpeed;
+                        videoPlayer.play().catch(() => {});
+                    });
+                } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                    videoPlayer.src = episode.url;
+                    videoPlayer.addEventListener('loadedmetadata', () => {
+                        videoPlayer.playbackRate = currentSpeed;
+                        videoPlayer.play().catch(() => {});
+                    });
+                }
+            }
+
+            // 隐藏封面
+            setTimeout(() => {
+                playerPoster.classList.add('hidden');
+            }, 500);
+
+            // 更新进度条
+            videoPlayer.ontimeupdate = () => {
+                const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            };
+        }
+
+        // 切换播放引擎
+        function switchRoute(route) {
+            currentRoute = route;
+            document.querySelectorAll('.route').forEach((btn, i) => {
+                btn.classList.toggle('active', i === route);
+            });
+            playEpisode(currentEpisodeIndex);
+        }
+
+        // 复制链接
+        function copyUrl() {
+            const url = document.getElementById('realUrlText').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('链接已复制到剪贴板');
+            }).catch(() => {
+                // 降级方案
+                const textarea = document.createElement('textarea');
+                textarea.value = url;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('链接已复制到剪贴板');
+            });
+        }
+
+        // 切换播放/暂停
+        function togglePlayPause() {
+            const videoPlayer = document.getElementById('videoPlayer');
+            const playPauseIcon = document.getElementById('playPauseIcon');
+            const playPauseText = document.getElementById('playPauseText');
+            const playIndicator = document.getElementById('playIndicator');
+
+            if (videoPlayer.paused) {
+                videoPlayer.play();
+                playPauseIcon.textContent = '▶';
+                playPauseText.textContent = '播放';
+                playIndicator.classList.remove('show');
+            } else {
+                videoPlayer.pause();
+                playPauseIcon.textContent = '⏸';
+                playPauseText.textContent = '暂停';
+                playIndicator.textContent = '⏸';
+                playIndicator.classList.add('show');
+                setTimeout(() => playIndicator.classList.remove('show'), 500);
+            }
+        }
+
+        // 切换倍速
+        function toggleSpeed() {
+            const speeds = [0.5, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(currentSpeed);
+            currentSpeed = speeds[(currentIndex + 1) % speeds.length];
+            
+            document.getElementById('speedText').textContent = currentSpeed + 'X';
+            document.getElementById('videoPlayer').playbackRate = currentSpeed;
+        }
+
+        // 切换全屏
+        function toggleFullScreen() {
+            const playerView = document.getElementById('player-view');
+            if (!document.fullscreenElement) {
+                playerView.requestFullscreen().catch(err => {
+                    console.error('Fullscreen failed:', err);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // 分享功能
+        function shareAction() {
+            const url = currentEpisodes[currentEpisodeIndex]?.url || '';
+            if (navigator.share) {
+                navigator.share({
+                    title: document.getElementById('uiTitle').textContent,
+                    url: url
+                }).catch(() => {});
+            } else {
+                copyUrl();
+            }
+        }
+
+        // 切换底部弹窗
+        function toggleSheet() {
+            const sheet = document.getElementById('bottomSheet');
+            const backdrop = document.getElementById('sheetBackdrop');
+            const isOpen = sheet.classList.contains('show');
+            
+            if (isOpen) {
+                sheet.classList.remove('show');
+                backdrop.classList.remove('show');
+            } else {
+                sheet.classList.add('show');
+                backdrop.classList.add('show');
+            }
+        }
+
+        // 视图切换
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+        }
+
+        // 返回首页
+        function navToHome() {
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.pause();
+            if (hls) {
+                hls.destroy();
+                hls = null;
+            }
+            showView('home-view');
+        }
+
+        // 返回首页（从 header）
+        function goHome() {
+            navToHome();
+        }
+
+        // 点击播放区域切换播放/暂停
+        document.getElementById('clickLayer').addEventListener('click', () => {
+            togglePlayPause();
+        });
+
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const sheet = document.getElementById('bottomSheet');
+                if (sheet.classList.contains('show')) {
+                    toggleSheet();
+                } else {
+                    navToHome();
+                }
+            }
+            if (e.key === ' ') {
+                e.preventDefault();
+                togglePlayPause();
+            }
+        });
+
+        // 初始化
+        loadData();
+    </script>
+</body>
+</html>
