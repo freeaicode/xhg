@@ -288,7 +288,12 @@
             const tabsContainer = document.getElementById('categoryBar');
             if (!appData || !appData.categories) return;
 
-            tabsContainer.innerHTML = appData.categories.map((cat, index) => `
+            // 支持 both 数组和对象格式
+            const categories = Array.isArray(appData.categories)
+                ? appData.categories
+                : Object.values(appData.categories);
+            
+            tabsContainer.innerHTML = categories.map((cat, index) => `
                 <button class="tab ${index === 0 ? 'active' : ''}" 
                         onclick="selectCategory(${index})"
                         data-index="${index}">
@@ -303,12 +308,14 @@
         // 渲染视频网格
         function renderVideoGrid() {
             const grid = document.getElementById('videoGrid');
-            if (!appData || !appData.categories || appData.categories.length === 0) {
-                grid.innerHTML = '<div class="loading">暂无视频内容</div>';
-                return;
-            }
+            if (!appData || !appData.categories) return;
 
-            const category = appData.categories[currentCategory];
+            // 支持 both 数组和对象格式
+            const categories = Array.isArray(appData.categories)
+                ? appData.categories
+                : Object.values(appData.categories);
+            
+            const category = categories[currentCategory];
             if (!category || !category.videos || category.videos.length === 0) {
                 grid.innerHTML = '<div class="loading">该分类下暂无视频</div>';
                 return;
@@ -351,19 +358,39 @@
 
         // 选择分类
         function selectCategory(index) {
+            // tab 0 (首页) 无分类数据，直接返回主页
+            if (index === 0) {
+                currentCategory = 0;
+                showView('home-view');
+                return;
+            }
+            
+            // 支持 both 数组和对象格式，并跳过首页tab
+            const categoryValues = Array.isArray(appData.categories)
+                ? appData.categories
+                : Object.values(appData.categories);
+            
+            // 调整索引：tab 1->index 0, tab 2->index 1, ..., tab 5->index (n-1)
+            let categoryIndex = index - 1;
+            if (index === 5) {
+                categoryIndex = categoryValues.length - 1; // 最后一个分类
+            }
+            
+            // 如果索引超出范围，重置为首页
+            if (categoryIndex < 0 || categoryIndex >= categoryValues.length) {
+                currentCategory = 0;
+                showView('home-view');
+                return;
+            }
+            
             currentCategory = index;
             document.querySelectorAll('.tab').forEach((tab, i) => {
                 tab.classList.toggle('active', i === index);
             });
             
-            // 如果是排行榜分类，显示特殊视图
-            if (index === 5) {
-                showRankingList();
-            } else {
-                currentPage = 1;
-                renderVideoGrid();
-                showView('home-view');
-            }
+            currentPage = 1;
+            renderVideoGrid();
+            showView('home-view');
         }
 
         // 搜索功能
@@ -373,8 +400,15 @@
                 return;
             }
             
+            // 支持 both 数组和对象格式
+            const categories = Array.isArray(appData.categories)
+                ? appData.categories
+                : Object.values(appData.categories);
+            const category = categories[currentCategory];
+            
+            if (!category) return;
+            
             const grid = document.getElementById('videoGrid');
-            const category = appData.categories[currentCategory];
             const filtered = category.videos.filter(v => v.name.toLowerCase().includes(keyword.toLowerCase()));
             
             if (filtered.length === 0) {
@@ -692,7 +726,11 @@
 
         // 修改页面
         function changePage(page) {
-            const category = appData.categories[currentCategory];
+            // 支持 both 数组和对象格式
+            const categories = Array.isArray(appData.categories)
+                ? appData.categories
+                : Object.values(appData.categories);
+            const category = categories[currentCategory];
             const pageSize = category.pageSize || 20;
             const totalPages = Math.ceil(category.videos.length / pageSize);
             
