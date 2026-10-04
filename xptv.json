@@ -2,196 +2,60 @@
   "ver": 1,
   "name": "黄果短剧",
   "site": "https://huangguoai.com",
-  "api": "csp_huangguo",
-  "type": 3,
-  
-  "getLocalInfo": function() {
-    return {
-      "ver": 1,
-      "name": "黄果短剧",
-      "api": "csp_huangguo",
-      "type": 3
-    };
-  },
-  
-  "getConfig": function() {
-    return {
-      "ver": 1,
-      "title": "黄果短剧",
-      "site": "https://huangguoai.com",
-      "tabs": [
-        { "name": "首页", "ext": { "id": "home" } },
-        { "name": "AI成人短剧", "ext": { "id": "ai-duanju" } },
-        { "name": "AI成人漫剧", "ext": { "id": "ai-manju" } },
-        { "name": "AI换脸", "ext": { "id": "ai-huanlian" } },
-        { "name": "AI魔改", "ext": { "id": "ai-mogai" } },
-        { "name": "排行榜", "ext": { "id": "ranks/hot" } }
+  "tabs": [
+    { "name": "首页", "ext": { "id": "home" } },
+    { "name": "AI成人短剧", "ext": { "id": "ai-duanju" } },
+    { "name": "AI成人漫剧", "ext": { "id": "ai-manju" } },
+    { "name": "AI换脸", "ext": { "id": "ai-huanlian" } },
+    { "name": "AI魔改", "ext": { "id": "ai-mogai" } },
+    { "name": "排行榜", "ext": { "id": "ranks/hot" } }
+  ],
+  "categories": {
+    "ai-duanju": {
+      "name": "AI成人短剧",
+      "page": 1,
+      "pageSize": 20,
+      "videos": [
+        { "vod_id": "3483", "vod_name": "琼明神女录", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 9.4分" },
+        { "vod_id": "6221", "vod_name": "网调我的冰山妈妈", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至6集 · 9.8分" },
+        { "vod_id": "7732", "vod_name": "宗师级保安", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至6集 · 8.5分" },
+        { "vod_id": "3884", "vod_name": "我在荒岛驯服女星", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 8.3分" },
+        { "vod_id": "2461", "vod_name": "人到中年当保安", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至4集 · 8.4分" }
       ]
-    };
-  },
-  
-  "getCards": function(ext) {
-    ext = argsify(ext);
-    const id = String(ext.id || 'home').replace(/^\//, '');
-    const page = Math.max(1, parseInt(ext.page) || 1);
-    const data = {
-      "ai-duanju": {
-        "ver": 1,
-        "title": "AI成人短剧",
-        "site": "https://huangguoai.com",
-        "tabs": [
-          { "name": "首页", "ext": { "id": "home" } },
-          { "name": "AI成人短剧", "ext": { "id": "ai-duanju" } },
-          { "name": "AI成人漫剧", "ext": { "id": "ai-manju" } },
-          { "name": "AI换脸", "ext": { "id": "ai-huanlian" } },
-          { "name": "AI魔改", "ext": { "id": "ai-mogai" } },
-          { "name": "排行榜", "ext": { "id": "ranks/hot" } }
-        ],
-        "categories": {
-          "ai-duanju": {
-            "name": "AI成人短剧",
-            "page": 1,
-            "pageSize": 20,
-            "vods": [
-              { "vod_id": "3483", "vod_name": "琼明神女录", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 9.4分", "vod_content": "天下第一剑仙修为尽失重新回到自己的宗门，宗门已经落魄的长老都随意被人欺辱", "vod_director": "黄果官方", "vod_area": "大陆", "vod_year": "2026", "vod_actor": "", "tracks": [{ "name": "第1集", "ext": { "url": "https://huangguoai.com/video/3483/", "ep": "1" } }, { "name": "第2集", "ext": { "url": "https://huangguoai.com/video/3483/", "ep": "2" } }, { "name": "第3集", "ext": { "url": "https://huangguoai.com/video/3483/", "ep": "3" } }] },
-              { "vod_id": "6221", "vod_name": "网调我的冰山妈妈", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至6集 · 9.8分", "vod_content": "...", "vod_director": "黄果原创", "vod_area": "大陆", "vod_year": "2026", "vod_actor": "", "tracks": [{ "name": "第1-6集", "ext": { "url": "https://huangguoai.com/video/6221/", "ep": "1-6" } }] },
-              { "vod_id": "7732", "vod_name": "宗师级保安", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至6集 · 8.5分", "vod_content": "...", "vod_director": "黄果原创", "vod_area": "大陆", "vod_year": "2026", "vod_actor": "", "tracks": [{ "name": "第1-6集", "ext": { "url": "https://huangguoai.com/video/7732/", "ep": "1-6" } }] }
-            ]
-          },
-          "ai-manju": {
-            "name": "AI成人漫剧",
-            "page": 1,
-            "pageSize": 20,
-            "vods": [
-              { "vod_id": "5671", "vod_name": "夜神月vs富江", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至5集 · 9.7分", "vod_content": "...", "vod_director": "", "vod_area": "", "vod_year": "", "vod_actor": "", "tracks": [{ "name": "第1-5集", "ext": { "url": "https://huangguoai.com/video/5671/", "ep": "1-5" } }] },
-              { "vod_id": "7530", "vod_name": "沉沦之血", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至10集 · 8.8分", "vod_content": "...", "vod_director": "", "vod_area": "", "vod_year": "", "vod_actor": "", "tracks": [{ "name": "第1-10集", "ext": { "url": "https://huangguoai.com/video/7530/", "ep": "1-10" } }] }
-            ]
-          },
-          "ai-huanlian": {
-            "name": "AI换脸",
-            "page": 1,
-            "pageSize": 20,
-            "vods": [
-              { "vod_id": "4381", "vod_name": "AI换脸 林允儿献身 绝美女神潮喷内射", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "vod_content": "...", "vod_director": "", "vod_area": "", "vod_year": "", "vod_actor": "", "tracks": [{ "name": "第1集", "ext": { "url": "https://huangguoai.com/video/4381/", "ep": "1" } }] }
-            ]
-          },
-          "ai-mogai": {
-            "name": "AI魔改",
-            "page": 1,
-            "pageSize": 20,
-            "vods": [
-              { "vod_id": "7207", "vod_name": "AI魔改 杨超越 人间锦鲤天然呆极致反差", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材", "vod_content": "...", "vod_director": "", "vod_area": "", "vod_year": "", "vod_actor": "", "tracks": [{ "name": "第1集", "ext": { "url": "https://huangguoai.com/video/7207/", "ep": "1" } }] }
-            ]
-          },
-          "ranks/hot": {
-            "name": "排行榜",
-            "page": 1,
-            "pageSize": 20,
-            "vods": [
-              { "vod_id": "3483", "vod_name": "琼明神女录", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 9.4分", "vod_content": "天下第一剑仙修为尽失重新回到自己的宗门，宗门已经落魄的长老都随意被人欺辱", "vod_director": "黄果官方", "vod_area": "大陆", "vod_year": "2026", "vod_actor": "", "tracks": [{ "name": "第1集", "ext": { "url": "https://huangguoai.com/video/3483/", "ep": "1" } }, { "name": "第2集", "ext": { "url": "https://huangguoai.com/video/3483/", "ep": "2" } }, { "name": "第3集", "ext": { "url": "https://huangguoai.com/video/3483/", "ep": "3" } }] },
-              { "vod_id": "7530", "vod_name": "沉沦之血", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至10集 · 8.8分", "vod_content": "...", "vod_director": "", "vod_area": "", "vod_year": "", "vod_actor": "", "tracks": [{ "name": "第1集", "ext": { "url": "https://huangguoai.com/video/7530/", "ep": "1" } }] },
-              { "vod_id": "5010", "vod_name": "系统带我攻略弟弟（漫剧版）", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至8集 · 9.9分", "vod_content": "...", "vod_director": "", "vod_area": "", "vod_year": "", "vod_actor": "", "tracks": [{ "name": "第1集", "ext": { "url": "https://huangguoai.com/video/5010/", "ep": "1" } }] }
-            ]
-          }
-        }
-      };
-    };
-    
-    if (id === 'home') {
-      return { "list": [], "page": page };
+    },
+    "ai-manju": {
+      "name": "AI成人漫剧",
+      "page": 1,
+      "pageSize": 20,
+      "videos": [
+        { "vod_id": "5671", "vod_name": "夜神月vs富江", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至5集 · 9.7分" },
+        { "vod_id": "7530", "vod_name": "沉沦之血", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至10集 · 8.8分" }
+      ]
+    },
+    "ai-huanlian": {
+      "name": "AI换脸",
+      "page": 1,
+      "pageSize": 20,
+      "videos": [
+        { "vod_id": "4381", "vod_name": "AI换脸 林允儿献身 绝美女神潮喷内射", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材" }
+      ]
+    },
+    "ai-mogai": {
+      "name": "AI魔改",
+      "page": 1,
+      "pageSize": 20,
+      "videos": [
+        { "vod_id": "7207", "vod_name": "AI魔改 杨超越 人间锦鲤天然呆极致反差", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "明星题材" }
+      ]
+    },
+    "ranks/hot": {
+      "name": "排行榜",
+      "page": 1,
+      "pageSize": 20,
+      "videos": [
+        { "vod_id": "3483", "vod_name": "琼明神女录", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至3集 · 9.4分" },
+        { "vod_id": "7530", "vod_name": "沉沦之血", "vod_pic": "https://expose.eisees.com/upload_01/upload/20260830/2026083017142733552.jpg", "vod_remarks": "更新至10集 · 8.8分" }
+      ]
     }
-    const url = "https://huangguoai.com/" + id + "/" + (page > 1 ? page + "/" : "");
-    return { "list": [], "page": page };
-  },
-  
-  "getTracks": function(ext) {
-    ext = argsify(ext);
-    const id = ext.id || '';
-    if (!id) return { "list": [] };
-    
-    // 从 detail 页获取分集
-    const html = fetchHtml("https://huangguoai.com/detail/" + id + "/");
-    const tracks = [];
-    const gridM = html.match(/<div\s+class="[^"]*\bhg-web-detail__ep-grid\b[^"]*"[^>]*>([\s\S]*?)<\/div>/);
-    if (gridM) {
-      const are = /<a\b[^>]*>[\s\S]*?<\/a>/g;
-      let m;
-      while ((m = are.exec(gridM[1])) !== null) {
-        const tag = m[0];
-        const hrefM = tag.match(/href="([^"]+)"/);
-        if (!hrefM) continue;
-        const href = hrefM[1];
-        const eidM = tag.match(/data-ep-id="([^"]*)"/);
-        const eid = eidM ? eidM[1] : '';
-        const name = eid ? "第" + eid + "集" : stripTags(tag);
-        tracks.push({ "name": name, "ext": { "url": fix(href), "ep": eid } });
-      }
-    }
-    if (!tracks.length) {
-      const playM = html.match(/<a\b[^>]*class="[^"]*\bhg-web-detail__play\b[^"]*"[^>]*href="([^"]+)"/);
-      if (playM) {
-        tracks.push({ "name": "第1集", "ext": { "url": fix(playM[1]), "ep": "" } });
-      }
-    }
-    if (!tracks.length) return { "list": [] };
-    return { "title": "黄果短剧", "tracks": tracks };
-  },
-  
-  "getPlayinfo": function(ext) {
-    ext = argsify(ext);
-    const url = ext.url || '';
-    const ep = String(ext.ep || '1');
-    if (!url) return { "urls": [] };
-    
-    const html = fetchHtml(url);
-    let play = '';
-    const m = html.match(/id="videoInitialData"[^>]*>([\s\S]*?)<\/script>/);
-    if (m) {
-      try {
-        const data = JSON.parse(m[1]);
-        const srcs = (data && data.epPlaySrcs) || {};
-        play = srcs[ep] || (data && data.videoSrc) || '';
-      } catch (e) {}
-    }
-    if (play) {
-      play = play.replace(/\\u0026/g, '&');
-      if (play.indexOf('http') !== 0) {
-        const mm = play.match(/(https?:\/\/[^\s"']+)/);
-        play = mm ? mm[1] : '';
-      }
-    }
-    if (!play) return { "urls": [] };
-    return {
-      "urls": [play],
-      "headers": [{ "User-Agent": "Mozilla/5.0", "Referer": "https://huangguoai.com/" }]
-    };
-  },
-  
-  "search": function(ext) {
-    ext = argsify(ext);
-    const kw = String(ext.text || ext.wd || '').trim();
-    if (!kw) return { "list": [], "page": 1 };
-    
-    const html = fetchHtml("https://huangguoai.com/search/video/" + encodeURIComponent(kw) + "/");
-    return { "list": [], "page": 1 };
   }
-}
-
-// 辅助函数
-function argsify(ext) {
-  if (typeof ext === 'string') return { "id": ext };
-  return ext || {};
-}
-
-function stripTags(s) {
-  return String(s || '')
-    .replace(/<[^>]*>/g, '')
-    .trim();
-}
-
-function fix(u) {
-  if (!u) return '';
-  if (u.indexOf('//') === 0) return 'https:' + u;
-  if (u.indexOf('/') === 0) return 'https://huangguoai.com' + u;
-  return u;
 }
