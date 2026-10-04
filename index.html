@@ -232,7 +232,7 @@
             
             <span class="sheet-section-title">播放引擎</span>
             <div class="routes">
-                <button class="route active" onclick="switchRoute(0)">原生直连</button>
+                <button class="route active" onclick="switchRoute(0)">HLS 直连</button>
                 <button class="route" onclick="switchRoute(1)">内置 HLS</button>
                 <button class="route" onclick="switchRoute(2)">iframe 解析</button>
             </div>
@@ -251,8 +251,9 @@
         let currentEpisodeIndex = 0;
         let hls = null;
         let currentSpeed = 1.0;
-        let currentRoute = 0; // 0: 原生直连, 1: 内置 HLS, 2: iframe 解析
+        let currentRoute = 0; // 0: HLS 直连, 1: 内置 HLS, 2: iframe 解析
         let iframePlayer = null;
+        let iframeReady = false;
 
         // CORS Proxies
         const CORS_PROXIES = [
@@ -491,13 +492,8 @@
             iframePlayer.src = '';
 
             // 根据引擎选择播放方式
-            if (currentRoute === 0) {
-                // 原生直连
-                videoPlayer.style.display = 'block';
-                videoPlayer.src = episode.url;
-                videoPlayer.play().catch(e => console.warn('Autoplay failed:', e));
-            } else if (currentRoute === 1) {
-                // 内置 HLS
+            if (currentRoute === 0 || currentRoute === 1) {
+                // HLS 直连 / 内置 HLS
                 videoPlayer.style.display = 'block';
                 if (Hls.isSupported()) {
                     hls = new Hls({ enableWorker: true, lowLatencyMode: true });
@@ -519,6 +515,7 @@
                 videoPlayer.style.display = 'none';
                 videoPlayer.pause();
                 iframePlayer.style.display = 'block';
+                iframeReady = false;
                 iframePlayer.src = 'https://free.maccms.xyz/?url=' + encodeURIComponent(episode.url);
             }
 
@@ -567,6 +564,15 @@
             const playPauseText = document.getElementById('playPauseText');
             const playIndicator = document.getElementById('playIndicator');
 
+            if (currentRoute === 2) {
+                // iframe 模式：通过 postMessage 发送控制指令
+                const iframePlayer = document.getElementById('iframePlayer');
+                if (iframePlayer.contentWindow) {
+                    iframePlayer.contentWindow.postMessage({ type: 'toggle-play' }, '*');
+                }
+                return;
+            }
+
             if (videoPlayer.paused) {
                 videoPlayer.play();
                 playPauseIcon.textContent = '▶';
@@ -589,7 +595,16 @@
             currentSpeed = speeds[(currentIndex + 1) % speeds.length];
             
             document.getElementById('speedText').textContent = currentSpeed + 'X';
-            document.getElementById('videoPlayer').playbackRate = currentSpeed;
+            
+            if (currentRoute === 2) {
+                // iframe 模式：通过 postMessage 发送倍速指令
+                const iframePlayer = document.getElementById('iframePlayer');
+                if (iframePlayer.contentWindow) {
+                    iframePlayer.contentWindow.postMessage({ type: 'set-speed', speed: currentSpeed }, '*');
+                }
+            } else {
+                document.getElementById('videoPlayer').playbackRate = currentSpeed;
+            }
         }
 
         // 切换全屏
@@ -657,6 +672,22 @@
         // 点击播放区域切换播放/暂停
         document.getElementById('clickLayer').addEventListener('click', () => {
             togglePlayPause();
+        });
+
+        // 监听 iframe 播放状态
+        window.addEventListener('message', (e) => {
+            if (!e.data) return;
+            if (e.data.type === 'video-state') {
+                const playPauseIcon = document.getElementById('playPauseIcon');
+                const playPauseText = document.getElementById('playPauseText');
+                if (e.data.state === 'play') {
+                    playPauseIcon.textContent = '▶';
+                    playPauseText.textContent = '播放';
+                } else {
+                    playPauseIcon.textContent = '⏸';
+                    playPauseText.textContent = '暂停';
+                }
+            }
         });
 
         // 键盘快捷键
