@@ -160,6 +160,7 @@
         <div class="video-layer">
             <img id="playerPoster" class="player-poster" src="" alt="封面" />
             <video id="videoPlayer" autoplay playsinline webkit-playsinline></video>
+            <iframe id="iframePlayer" allow="autoplay;fullscreen" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" style="display:none;"></iframe>
         </div>
         
         <div class="ui-layer">
@@ -233,6 +234,7 @@
             <div class="routes">
                 <button class="route active" onclick="switchRoute(0)">原生直连</button>
                 <button class="route" onclick="switchRoute(1)">内置 HLS</button>
+                <button class="route" onclick="switchRoute(2)">iframe 解析</button>
             </div>
             
             <span class="sheet-section-title">选集</span>
@@ -249,7 +251,8 @@
         let currentEpisodeIndex = 0;
         let hls = null;
         let currentSpeed = 1.0;
-        let currentRoute = 0; // 0: 原生直连, 1: 内置 HLS
+        let currentRoute = 0; // 0: 原生直连, 1: 内置 HLS, 2: iframe 解析
+        let iframePlayer = null;
 
         // CORS Proxies
         const CORS_PROXIES = [
@@ -467,6 +470,7 @@
             const videoPlayer = document.getElementById('videoPlayer');
             const playerPoster = document.getElementById('playerPoster');
             const realUrlText = document.getElementById('realUrlText');
+            const iframePlayer = document.getElementById('iframePlayer');
 
             // 更新播放列表高亮
             document.querySelectorAll('.ep-btn').forEach((btn, i) => {
@@ -482,13 +486,19 @@
                 hls = null;
             }
 
+            // 隐藏 iframe
+            iframePlayer.style.display = 'none';
+            iframePlayer.src = '';
+
             // 根据引擎选择播放方式
             if (currentRoute === 0) {
                 // 原生直连
+                videoPlayer.style.display = 'block';
                 videoPlayer.src = episode.url;
                 videoPlayer.play().catch(e => console.warn('Autoplay failed:', e));
-            } else {
+            } else if (currentRoute === 1) {
                 // 内置 HLS
+                videoPlayer.style.display = 'block';
                 if (Hls.isSupported()) {
                     hls = new Hls({ enableWorker: true, lowLatencyMode: true });
                     hls.loadSource(episode.url);
@@ -504,6 +514,12 @@
                         videoPlayer.play().catch(() => {});
                     });
                 }
+            } else if (currentRoute === 2) {
+                // iframe 解析
+                videoPlayer.style.display = 'none';
+                videoPlayer.pause();
+                iframePlayer.style.display = 'block';
+                iframePlayer.src = 'https://free.maccms.xyz/?url=' + encodeURIComponent(episode.url);
             }
 
             // 隐藏封面
